@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import routes from "./src/routes/index.js";
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ const connect = () => {
       throw err;
     });
 };
+
+app.use("/api", routes);
 
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
