@@ -6,7 +6,8 @@ const productCtrl = {
     try {
       const features = new apiFeatures(Products.find(), req.query)
         .paginating()
-        .sorting();
+        .sorting()
+        .searching();
 
       const products = await features.query;
 

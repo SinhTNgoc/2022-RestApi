@@ -20,6 +20,19 @@ export function apiFeatures(query, queryString) {
   };
 
   //this.query = Products.find().limit(limit).skip(skip).sort(sort)
-
+  
+  this.searching = () => {
+    const search = this.queryString.search;
+    if (search) {
+      this.query = this.query.find({
+        $text: {
+          $search: search,
+        },
+      });
+    } else {
+      this.query = this.query.find();
+    }
+    return this;
+  };
 
 }

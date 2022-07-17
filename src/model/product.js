@@ -26,6 +26,12 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//Index for searching title
+productSchema.index({ title: "text" });
+
 const Products = mongoose.model("Products", productSchema);
+
+//Khởi tạo index
+Products.createIndexes({ title: "text" });
 
 export default Products;
