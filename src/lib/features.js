@@ -60,5 +60,9 @@ export function apiFeatures(query, queryString) {
   // {"price":{
   //  "$gt":"56.99"
   //}}
-  //}).limit(limit).skip(skip).sort(sort)
+  this.counting = () => {
+    this.query = this.query.count();
+
+    return this;
+  };
 }
