@@ -7,11 +7,17 @@ const productCtrl = {
       const features = new apiFeatures(Products.find(), req.query)
         .paginating()
         .sorting()
-        .searching();
+        .searching()
+        .filtering();
 
-      const products = await features.query;
+      const result = await Promise.allSettled([
+        features.query,
+        Products.countDocuments(),
+      ]);
+      const products = result[0].status === "fulfilled" ? result[0].value : [];
+      const count = result[1].status === "fulfilled" ? result[1].value : 0;
 
-      return res.status(200).json(products);
+      return res.status(200).json({ products, count });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
