@@ -13,4 +13,4 @@ export const checkProductData = async (req, res, next) => {
 
 // for (const key of Object.keys(req.body)){
   //  if(!req.body[key]) errors.push(`Please add product ${key}`)
-//}
+//} 
