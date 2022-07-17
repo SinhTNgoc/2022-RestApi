@@ -1,13 +1,15 @@
 import Products from "../model/product.js";
+import { apiFeatures } from "../lib/features.js";
 
 const productCtrl = {
   getProducts: async (req, res) => {
     try {
-      const page = req.query.page * 1 || 1;
-      const limit = req.query.limit * 1 || 5;
-      const sort = req.query.sort || "-createdAt";
-      const skip = limit * (page - 1);
-      const products = await Products.find().limit(limit).skip(skip).sort(sort);
+      const features = new apiFeatures(Products.find(), req.query)
+        .paginating()
+        .sorting();
+
+      const products = await features.query;
+
       return res.status(200).json(products);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
