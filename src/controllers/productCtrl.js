@@ -25,8 +25,9 @@ const productCtrl = {
     }
   },
   getProduct: async (req, res) => {
+    console.log(req.params.id);
     try {
-      const product = await Products.findById(req.prams.id);
+      const product = await Products.findById(req.params.id);
       if (!product)
         return res.status(404).json({ msg: "Product does not exist!" });
       return res.status(200).json(product);
